@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 //Controller -> THYMELEAF
 //RestController -> API REST
 @Controller
@@ -32,6 +34,13 @@ public class PacienteController {
         model.addAttribute("apellido", paciente.getApellido());
         model.addAttribute("fechaAlta", paciente.getFechaAlta());
         return "consultarPaciente";
+    }
+
+    @GetMapping("/todos")
+    public String listarPacientes(Model model) {
+        List<Paciente> pacientes = pacienteServicio.listarTodos();
+        model.addAttribute("pacientes", pacientes);
+        return "listarPacientes";
     }
 
 
