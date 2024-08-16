@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Odontologos</title>
+</head>
+<body>
+<h1>Lista de Odontologos</h1>
+<ul>
+    <li th:each="odontologo : ${listaOdontologos}">
+        <span th:text="${odontologo.getNombre()} + ' ' + ${odontologo.getApellido()}">Nombre Doctor</span>
+    </li>
+</ul>
+</body>
+</html>

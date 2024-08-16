@@ -6,6 +6,7 @@ import com.dh.Clase15_SpringMVC.modelo.Odontologo;
 import org.apache.log4j.Logger;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ImplementacionOdontologo implements IDAO<Odontologo> {
@@ -62,7 +63,40 @@ public class ImplementacionOdontologo implements IDAO<Odontologo> {
 
     @Override
     public List<Odontologo> listarTodos() {
-        return null;
+        List<Odontologo> odontologos = new ArrayList<>();
+
+        Connection connection = null;
+        Odontologo odontologo = null;
+
+        try {
+            connection = BD.getConnection();
+
+            PreparedStatement psBuscarPorId = connection.prepareStatement(
+                    "SELECT * FROM ODONTOLOGOS"
+            );
+            ResultSet rs = psBuscarPorId.executeQuery();
+
+            while (rs.next()) {
+                odontologo = new Odontologo();
+                odontologo.setId(rs.getInt(1));
+                odontologo.setNombre(rs.getString(2));
+                odontologo.setApellido(rs.getString(3));
+                odontologo.setMatricula(rs.getString(4));
+                odontologos.add(odontologo);
+            }
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return odontologos;
     }
 
     @Override

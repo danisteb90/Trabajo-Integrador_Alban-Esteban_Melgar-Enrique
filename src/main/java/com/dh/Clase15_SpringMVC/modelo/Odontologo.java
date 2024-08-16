@@ -47,4 +47,14 @@ public class Odontologo {
     public void setMatricula(String matricula) {
         this.matricula = matricula;
     }
+
+    @Override
+    public String toString() {
+        return "Odontologo{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                ", apellido='" + apellido + '\'' +
+                ", matricula='" + matricula + '\'' +
+                '}';
+    }
 }

@@ -28,6 +28,8 @@ public class BD {
 
     private static final String SQL_INSERT_ODONTOLOGO = "INSERT INTO ODONTOLOGOS (NOMBRE, APELLIDO, MATRICULA) " +
             "VALUES ('Daniela', 'Toro', '123')";
+    private static final String SQL_INSERT_ODONTOLOGO2 = "INSERT INTO ODONTOLOGOS (NOMBRE, APELLIDO, MATRICULA) " +
+            "VALUES ('Daniel', 'Vaca', '456')";
 
     private static final String SQL_INSERT_PACIENTE = "INSERT INTO PACIENTES (NOMBRE, APELLIDO, DOMICILIO, DNI, FECHA_ALTA) " +
             "VALUES ('Carlos', 'Andrade', 'Colombia', '456', '2024-08-30')";
@@ -47,6 +49,8 @@ public class BD {
 
             LOGGER.info("Estamos insertando un odontologo en la tabla odontologos");
             statement.execute(SQL_INSERT_ODONTOLOGO);
+            LOGGER.info("Estamos insertando otro odontologo en la tabla odontologos");
+            statement.execute(SQL_INSERT_ODONTOLOGO2);
             LOGGER.info("Estamos insertando un paciente en la tabla pacientes");
             statement.execute(SQL_INSERT_PACIENTE);
 

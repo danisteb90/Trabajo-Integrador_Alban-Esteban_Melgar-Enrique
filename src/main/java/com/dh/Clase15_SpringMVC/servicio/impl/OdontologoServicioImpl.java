@@ -39,7 +39,7 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public List<Odontologo> listarTodos() {
-        return null;
+        return odontologoIDAO.listarTodos();
     }
 
 }

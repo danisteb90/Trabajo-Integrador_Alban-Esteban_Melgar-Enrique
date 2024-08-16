@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.List;
+
 //Controller -> THYMELEAF
 //RestController -> API REST
 @Controller
-@RequestMapping("/odontologo")
+@RequestMapping("/odontologos")
 public class OdontologoController {
     private IOdontologoServicio odontologoServicio;
 
@@ -21,6 +23,16 @@ public class OdontologoController {
         this.odontologoServicio = new OdontologoServicioImpl();
     }
 
+
+
+
+    @GetMapping("/todos")
+    public String listarOdontologos(Model model) {
+        List<Odontologo> odontologos = odontologoServicio.listarTodos();
+        model.addAttribute("listaOdontologos", odontologos);
+
+        return "listarOdontologos";
+    }
     @GetMapping("/id")
     public String buscarOdontologoPorId(Model model,
                                         @RequestParam Integer id) {
@@ -29,6 +41,9 @@ public class OdontologoController {
         model.addAttribute("apellido", odontologo.getApellido());
         return "buscarOdontologo";
     }
+
+
+
 
 
 
