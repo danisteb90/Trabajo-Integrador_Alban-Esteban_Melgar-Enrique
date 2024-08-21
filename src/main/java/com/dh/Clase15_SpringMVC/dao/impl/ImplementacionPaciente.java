@@ -140,7 +140,7 @@ public class ImplementacionPaciente implements IDAO<Paciente> {
     }
 
     @Override
-    public void eliminarPorId(Integer id) {
+    public boolean eliminarPorId(Integer id) {
         Connection connection = null;
 
         try {
@@ -158,6 +158,7 @@ public class ImplementacionPaciente implements IDAO<Paciente> {
                 ex.printStackTrace();
             }
         }
+        return false;
     }
 
     @Override

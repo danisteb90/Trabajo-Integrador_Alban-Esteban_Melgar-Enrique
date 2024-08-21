@@ -15,7 +15,7 @@ public interface IDAO<T> {
     T consultarPorId(Integer id);
 
     //eliminar
-    void eliminarPorId(Integer id);
+    boolean eliminarPorId(Integer id);
 
     //actualizar
     T actualizar(T t);

@@ -28,13 +28,13 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
     }
 
     @Override
-    public void eliminar(Integer id) {
-
+    public boolean eliminar(Integer id) {
+        return odontologoIDAO.eliminarPorId(id);
     }
 
     @Override
-    public void actualizar(Odontologo odontologo) {
-
+    public Odontologo actualizar(Odontologo odontologo) {
+        return odontologoIDAO.actualizar(odontologo);
     }
 
     @Override
