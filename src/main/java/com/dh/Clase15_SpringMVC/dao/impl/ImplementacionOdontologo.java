@@ -71,17 +71,14 @@ public class ImplementacionOdontologo implements IDAO<Odontologo> {
         try {
             connection = BD.getConnection();
 
-            PreparedStatement psBuscarPorId = connection.prepareStatement(
+            PreparedStatement buscarTodos = connection.prepareStatement(
                     "SELECT * FROM ODONTOLOGOS"
             );
-            ResultSet rs = psBuscarPorId.executeQuery();
+            ResultSet rs = buscarTodos.executeQuery();
 
             while (rs.next()) {
-                odontologo = new Odontologo();
-                odontologo.setId(rs.getInt(1));
-                odontologo.setNombre(rs.getString(2));
-                odontologo.setApellido(rs.getString(3));
-                odontologo.setMatricula(rs.getString(4));
+                odontologo = new Odontologo(rs.getInt(1), rs.getString(2),
+                        rs.getString(3), rs.getString(4));
                 odontologos.add(odontologo);
             }
 
