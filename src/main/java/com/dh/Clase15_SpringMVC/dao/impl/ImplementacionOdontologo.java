@@ -135,12 +135,73 @@ public class ImplementacionOdontologo implements IDAO<Odontologo> {
     }
 
     @Override
-    public void eliminarPorId(Integer id) {
+    public boolean eliminarPorId(Integer id) {
+        Connection connection = null;
+        boolean eliminado = false;
 
+        try {
+            connection = BD.getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "DELETE FROM ODONTOLOGOS WHERE ID = ?"
+            );
+
+            preparedStatement.setLong(1, id);
+
+            int filasAfectadas = preparedStatement.executeUpdate();
+            eliminado = filasAfectadas > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return eliminado;
     }
 
     @Override
     public Odontologo actualizar(Odontologo odontologo) {
-        return null;
+        Connection connection = null;
+
+        try {
+            LOGGER.info("Estamos actualizando un odontologo");
+
+            connection = BD.getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "UPDATE ODONTOLOGOS SET NOMBRE=?, APELLIDO=?, MATRICULA=? WHERE ID=?"
+            );
+
+            preparedStatement.setString(1, odontologo.getNombre());
+            preparedStatement.setString(2, odontologo.getApellido());
+            preparedStatement.setString(3, odontologo.getMatricula());
+            preparedStatement.setInt(4, odontologo.getId());
+
+            int filasAfectadas = preparedStatement.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("Se actualizó el odontologo con nombre " +
+                        odontologo.getNombre());
+            } else {
+                System.out.println("No se encontró el odontologo con ID " +
+                        odontologo.getId());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+        LOGGER.info("Actualizamos el odontologo con nombre " + odontologo.getNombre());
+        return odontologo;
     }
 }
