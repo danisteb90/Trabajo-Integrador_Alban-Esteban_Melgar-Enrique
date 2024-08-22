@@ -2,6 +2,7 @@ package com.dh.Clase15_SpringMVC.dao.impl;
 
 import com.dh.Clase15_SpringMVC.dao.BD;
 import com.dh.Clase15_SpringMVC.dao.IDAO;
+import com.dh.Clase15_SpringMVC.modelo.Domicilio;
 import com.dh.Clase15_SpringMVC.modelo.Odontologo;
 import com.dh.Clase15_SpringMVC.modelo.Paciente;
 import org.apache.log4j.Logger;
@@ -14,26 +15,30 @@ public class ImplementacionPaciente implements IDAO<Paciente> {
 
     private static final Logger LOGGER = Logger.getLogger(ImplementacionPaciente.class);
 
+    ImplementacionDomicilio implementacionDomicilio = new ImplementacionDomicilio();
+
     @Override
     public Paciente guardar(Paciente paciente) {
         Connection connection = null;
 
         try {
+            ImplementacionDomicilio implementacionDomicilio = new ImplementacionDomicilio();
+            implementacionDomicilio.guardar(paciente.getDomicilio());
             LOGGER.info("Estamos guardando un paciente");
 
             connection = BD.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(
                     "INSERT INTO PACIENTES (" +
-                            "NOMBRE, APELLIDO, DOMICILIO, DNI, FECHA_ALTA) VALUES " +
+                            "NOMBRE, APELLIDO, DNI, FECHA_ALTA, DOMICILIO_ID) VALUES " +
                             "(?,?,?,?,?)", Statement.RETURN_GENERATED_KEYS
             );
 
             preparedStatement.setString(1, paciente.getNombre());
             preparedStatement.setString(2, paciente.getApellido());
-            preparedStatement.setString(3, paciente.getDomicilio());
-            preparedStatement.setString(4, paciente.getDni());
-            preparedStatement.setDate(5, Date.valueOf(paciente.getFechaAlta()));
+            preparedStatement.setString(3, paciente.getDni());
+            preparedStatement.setDate(4, Date.valueOf(paciente.getFechaAlta()));
+            preparedStatement.setInt(5, paciente.getDomicilio().getId());
 
             preparedStatement.execute();
 
@@ -79,9 +84,10 @@ public class ImplementacionPaciente implements IDAO<Paciente> {
             ResultSet rs = preparedStatement.executeQuery();
 
             while(rs.next()) {
+                Domicilio domicilio = implementacionDomicilio.consultarPorId(rs.getInt(6));
                 paciente = new Paciente(rs.getInt(1), rs.getString(2),
-                        rs.getString(3), rs.getString(4), rs.getString(5),
-                        rs.getDate(6).toLocalDate());
+                        rs.getString(3), rs.getString(4),
+                        rs.getDate(5).toLocalDate(), domicilio);
 
                 pacienteList.add(paciente);
 
@@ -116,13 +122,11 @@ public class ImplementacionPaciente implements IDAO<Paciente> {
             ResultSet rs = psConsultarPorId.executeQuery();
 
             while (rs.next()) {
-                paciente = new Paciente();
-                paciente.setId(rs.getInt(1));
-                paciente.setNombre(rs.getString(2));
-                paciente.setApellido(rs.getString(3));
-                paciente.setDni(rs.getString(4));
-                paciente.setDomicilio(rs.getString(5));
-                paciente.setFechaAlta(rs.getDate(6).toLocalDate());
+                Domicilio domicilio = implementacionDomicilio.consultarPorId(rs.getInt(6));
+
+                paciente = new Paciente(rs.getInt(1), rs.getString(2),
+                        rs.getString(3), rs.getString(4),
+                        rs.getDate(5).toLocalDate(), domicilio);
             }
 
 
@@ -162,36 +166,43 @@ public class ImplementacionPaciente implements IDAO<Paciente> {
 
     @Override
     public Paciente actualizar(Paciente paciente) {
-        Connection connection = null;
-
-        try {
-            connection = BD.getConnection();
-
-            PreparedStatement preparedStatement = connection.prepareStatement(
-                    "UPDATE PACIENTES SET NOMBRE=?, APELLIDO=?, DOMICILIO=?," +
-                            "DNI=?, FECHA_ALTA=? WHERE ID=?"
-            );
-
-            preparedStatement.setString(1,paciente.getNombre());
-            preparedStatement.setString(2,paciente.getApellido());
-            preparedStatement.setString(3, paciente.getDomicilio());
-            preparedStatement.setString(4, paciente.getDni());
-            preparedStatement.setDate(5, Date.valueOf(paciente.getFechaAlta()));
-            preparedStatement.setInt(6, paciente.getId());
-
-            preparedStatement.execute();
-
-            System.out.println("Este es el nuevo nombre del paciente" + paciente.getNombre());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                connection.close();
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-        }
-        return paciente;
+        return null;
     }
+
+//    @Override
+//    public Paciente actualizar(Paciente paciente) {
+//        Connection connection = null;
+//
+//        try {
+//            connection = BD.getConnection();
+//
+//            PreparedStatement preparedStatement = connection.prepareStatement(
+//                    "UPDATE PACIENTES SET NOMBRE=?, APELLIDO=?, DOMICILIO=?," +
+//                            "DNI=?, FECHA_ALTA=? WHERE ID=?"
+//            );
+//
+//            preparedStatement.setString(1,paciente.getNombre());
+//            preparedStatement.setString(2,paciente.getApellido());
+//            preparedStatement.setString(3, paciente.getDomicilio());
+//            preparedStatement.setString(4, paciente.getDni());
+//            preparedStatement.setDate(5, Date.valueOf(paciente.getFechaAlta()));
+//            preparedStatement.setInt(6, paciente.getId());
+//
+//            preparedStatement.execute();
+//
+//            System.out.println("Este es el nuevo nombre del paciente" + paciente.getNombre());
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        } finally {
+//            try {
+//                connection.close();
+//            } catch (Exception ex) {
+//                ex.printStackTrace();
+//            }
+//        }
+//        return paciente;
+//    }
+
+
 }

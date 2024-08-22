@@ -7,25 +7,25 @@ public class Paciente {
     private Integer id;
     private String nombre;
     private String apellido;
-    private String domicilio;
     private String dni;
     private LocalDate fechaAlta;
+    private Domicilio domicilio;
 
-    public Paciente(Integer id, String nombre, String apellido, String domicilio, String dni, LocalDate fechaAlta) {
+    public Paciente(Integer id, String nombre, String apellido, String dni, LocalDate fechaAlta, Domicilio domicilio) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
-        this.domicilio = domicilio;
         this.dni = dni;
         this.fechaAlta = fechaAlta;
+        this.domicilio = domicilio;
     }
 
-    public Paciente(String nombre, String apellido, String domicilio, String dni, LocalDate fechaAlta) {
+    public Paciente(String nombre, String apellido, String dni, LocalDate fechaAlta, Domicilio domicilio) {
         this.nombre = nombre;
         this.apellido = apellido;
-        this.domicilio = domicilio;
         this.dni = dni;
         this.fechaAlta = fechaAlta;
+        this.domicilio = domicilio;
     }
 
     public Paciente() {
@@ -55,11 +55,11 @@ public class Paciente {
         this.apellido = apellido;
     }
 
-    public String getDomicilio() {
+    public Domicilio getDomicilio() {
         return domicilio;
     }
 
-    public void setDomicilio(String domicilio) {
+    public void setDomicilio(Domicilio domicilio) {
         this.domicilio = domicilio;
     }
 
@@ -85,11 +85,9 @@ public class Paciente {
                 "id=" + id +
                 ", nombre='" + nombre + '\'' +
                 ", apellido='" + apellido + '\'' +
-                ", domicilio='" + domicilio + '\'' +
                 ", dni='" + dni + '\'' +
                 ", fechaAlta=" + fechaAlta +
+                ", domicilio=" + domicilio +
                 '}';
     }
-
-
 }

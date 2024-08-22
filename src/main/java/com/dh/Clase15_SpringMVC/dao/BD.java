@@ -10,14 +10,22 @@ public class BD {
 
     private static final Logger LOGGER = Logger.getLogger(BD.class);
 
+    private static final String DROP_CREATE_DOMICILIOS = "DROP TABLE IF EXISTS DOMICILIOS; CREATE TABLE " +
+            "DOMICILIOS (" +
+            "ID INT AUTO_INCREMENT PRIMARY KEY," +
+            "CALLE VARCHAR(100) NOT NULL," +
+            "NUMERO VARCHAR(100) NOT NULL," +
+            "LOCALIDAD VARCHAR(100) NOT NULL," +
+            "PROVINCIA VARCHAR(100) NOT NULL)";
+
     private static final String DROP_CREATE_PACIENTES = "DROP TABLE IF EXISTS PACIENTES; CREATE TABLE " +
             "PACIENTES (" +
             "ID INT AUTO_INCREMENT PRIMARY KEY," +
             "NOMBRE VARCHAR(100) NOT NULL," +
             "APELLIDO VARCHAR(100) NOT NULL," +
-            "DOMICILIO VARCHAR(100) NOT NULL," +
             "DNI VARCHAR(100) NOT NULL," +
-            "FECHA_ALTA DATE NOT NULL)";
+            "FECHA_ALTA DATE NOT NULL," +
+            "DOMICILIO_ID INT NOT NULL)";
 
     private static final String DROP_CREATE_ODONTOLOGOS = "DROP TABLE IF EXISTS ODONTOLOGOS; CREATE TABLE " +
             "ODONTOLOGOS (" +
@@ -31,8 +39,11 @@ public class BD {
     private static final String SQL_INSERT_ODONTOLOGO2 = "INSERT INTO ODONTOLOGOS (NOMBRE, APELLIDO, MATRICULA) " +
             "VALUES ('Daniel', 'Vaca', '456')";
 
-    private static final String SQL_INSERT_PACIENTE = "INSERT INTO PACIENTES (NOMBRE, APELLIDO, DOMICILIO, DNI, FECHA_ALTA) " +
-            "VALUES ('Carlos', 'Andrade', 'Colombia', '456', '2024-08-30')";
+    private static final String SQL_INSERT_DOMICILIO = "INSERT INTO DOMICILIOS (CALLE, NUMERO, LOCALIDAD, PROVINCIA) " +
+            "VALUES ('Calle Azul', '12', 'Bogota', 'Bogota')";
+
+    private static final String SQL_INSERT_PACIENTE = "INSERT INTO PACIENTES (NOMBRE, APELLIDO, DNI, FECHA_ALTA, DOMICILIO_ID) " +
+            "VALUES ('Carlos', 'Andrade', '789', '2024-08-30', 1)";
 
     public static void createTable() {
         Connection connection = null;
@@ -42,15 +53,20 @@ public class BD {
 
             Statement statement = connection.createStatement();
 
-            LOGGER.info("Estamos creando la tabla pacientes");
-            statement.execute(DROP_CREATE_PACIENTES);
             LOGGER.info("Estamos creando la tabla odontologos");
             statement.execute(DROP_CREATE_ODONTOLOGOS);
+            LOGGER.info("Estamos creando la tabla domicilios");
+            statement.execute(DROP_CREATE_DOMICILIOS);
+            LOGGER.info("Estamos creando la tabla pacientes");
+            statement.execute(DROP_CREATE_PACIENTES);
+
 
             LOGGER.info("Estamos insertando un odontologo en la tabla odontologos");
             statement.execute(SQL_INSERT_ODONTOLOGO);
             LOGGER.info("Estamos insertando otro odontologo en la tabla odontologos");
             statement.execute(SQL_INSERT_ODONTOLOGO2);
+            LOGGER.info("Estamos insertando un paciente en la tabla domicilios");
+            statement.execute(SQL_INSERT_DOMICILIO);
             LOGGER.info("Estamos insertando un paciente en la tabla pacientes");
             statement.execute(SQL_INSERT_PACIENTE);
 
