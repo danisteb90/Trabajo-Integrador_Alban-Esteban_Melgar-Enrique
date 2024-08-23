@@ -23,8 +23,8 @@ public class PacienteServicioImpl implements IPacienteServicio {
         return interfazDAO.consultarPorId(id);
     }
     @Override
-    public void eliminar(Integer id){
-        interfazDAO.eliminarPorId(id);
+    public boolean eliminar(Integer id){
+       return interfazDAO.eliminarPorId(id);
     }
     @Override
     public List<Paciente> listarTodos() {
@@ -32,8 +32,8 @@ public class PacienteServicioImpl implements IPacienteServicio {
     }
 
     @Override
-    public void actualizar(Paciente paciente) {
-        interfazDAO.actualizar(paciente);
+    public Paciente actualizar(Paciente paciente) {
+       return interfazDAO.actualizar(paciente);
     }
 
 }

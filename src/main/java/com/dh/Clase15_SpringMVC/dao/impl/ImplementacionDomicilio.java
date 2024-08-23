@@ -137,8 +137,8 @@ public class ImplementacionDomicilio implements IDAO<Domicilio> {
     }
 
     @Override
-    public void eliminarPorId(Integer id) {
-
+    public boolean eliminarPorId(Integer id) {
+    return false;
     }
 
     @Override

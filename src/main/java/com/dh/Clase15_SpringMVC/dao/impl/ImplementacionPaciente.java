@@ -146,11 +146,63 @@ public class ImplementacionPaciente implements IDAO<Paciente> {
     @Override
     public boolean eliminarPorId(Integer id) {
         Connection connection = null;
+        boolean eliminado = false;
 
         try {
+            connection = BD.getConnection();
 
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "DELETE FROM PACIENTES WHERE ID = ?"
+            );
 
+            preparedStatement.setLong(1, id);
 
+            int filasAfectadas = preparedStatement.executeUpdate();
+            eliminado = filasAfectadas > 0;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                connection.close();
+            } catch (Exception ex) {
+                ex.printStackTrace();
+            }
+        }
+
+        return eliminado;
+    }
+
+    @Override
+    public Paciente actualizar(Paciente paciente) {
+        Connection connection = null;
+
+        try {
+            ImplementacionDomicilio implementacionDomicilio = new ImplementacionDomicilio();
+            implementacionDomicilio.guardar(paciente.getDomicilio());
+            LOGGER.info("Estamos actualizando un paciente");
+
+            connection = BD.getConnection();
+
+            PreparedStatement preparedStatement = connection.prepareStatement(
+                    "UPDATE PACIENTES SET NOMBRE=?, APELLIDO=?, DNI=?,FECHA_ALTA=?, DOMICILIO_ID=? WHERE ID=?"
+            );
+
+            preparedStatement.setString(1, paciente.getNombre());
+            preparedStatement.setString(2, paciente.getApellido());
+            preparedStatement.setString(3, paciente.getDni());
+            preparedStatement.setDate(4, Date.valueOf(paciente.getFechaAlta()));
+            preparedStatement.setInt(5, paciente.getDomicilio().getId());
+
+            int filasAfectadas = preparedStatement.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                System.out.println("Se actualizó el odontologo con nombre " +
+                        paciente.getNombre());
+            } else {
+                System.out.println("No se encontró el odontologo con ID " +
+                        paciente.getId());
+            }
 
 
         } catch (Exception e) {
@@ -162,12 +214,8 @@ public class ImplementacionPaciente implements IDAO<Paciente> {
                 ex.printStackTrace();
             }
         }
-        return false;
-    }
-
-    @Override
-    public Paciente actualizar(Paciente paciente) {
-        return null;
+        LOGGER.info("Guardamos el paciente con nombre " + paciente.getNombre());
+        return paciente;
     }
 
 //    @Override
