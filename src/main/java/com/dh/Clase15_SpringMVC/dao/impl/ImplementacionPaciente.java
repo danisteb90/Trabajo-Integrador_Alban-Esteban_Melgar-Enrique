@@ -3,7 +3,6 @@ package com.dh.Clase15_SpringMVC.dao.impl;
 import com.dh.Clase15_SpringMVC.dao.BD;
 import com.dh.Clase15_SpringMVC.dao.IDAO;
 import com.dh.Clase15_SpringMVC.modelo.Domicilio;
-import com.dh.Clase15_SpringMVC.modelo.Odontologo;
 import com.dh.Clase15_SpringMVC.modelo.Paciente;
 import org.apache.log4j.Logger;
 
@@ -178,80 +177,71 @@ public class ImplementacionPaciente implements IDAO<Paciente> {
         Connection connection = null;
 
         try {
-            ImplementacionDomicilio implementacionDomicilio = new ImplementacionDomicilio();
-            implementacionDomicilio.guardar(paciente.getDomicilio());
             LOGGER.info("Estamos actualizando un paciente");
+
+            Paciente pacienteExistente = consultarPorId(paciente.getId());
+            if (pacienteExistente == null) {
+                LOGGER.warn("No se encontró el paciente con ID " + paciente.getId());
+                return null;
+            }
+
+            if (paciente.getNombre() != null) pacienteExistente.setNombre(paciente.getNombre());
+            if (paciente.getApellido() != null) pacienteExistente.setApellido(paciente.getApellido());
+            if (paciente.getDni() != null) pacienteExistente.setDni(paciente.getDni());
+            if (paciente.getFechaAlta() != null) pacienteExistente.setFechaAlta(paciente.getFechaAlta());
+
+            if (paciente.getDomicilio() != null) {
+                ImplementacionDomicilio implementacionDomicilio = new ImplementacionDomicilio();
+                Domicilio domicilioActualizado;
+                if (paciente.getDomicilio().getId() != null) {
+                    domicilioActualizado = implementacionDomicilio.actualizar(paciente.getDomicilio());
+                } else {
+                    domicilioActualizado = implementacionDomicilio.guardar(paciente.getDomicilio());
+                }
+                if (domicilioActualizado != null) {
+                    pacienteExistente.setDomicilio(domicilioActualizado);
+                } else {
+                    LOGGER.warn("No se pudo actualizar o guardar el domicilio del paciente");
+                    return null;
+                }
+            }
 
             connection = BD.getConnection();
 
             PreparedStatement preparedStatement = connection.prepareStatement(
-                    "UPDATE PACIENTES SET NOMBRE=?, APELLIDO=?, DNI=?,FECHA_ALTA=?, DOMICILIO_ID=? WHERE ID=?"
+                    "UPDATE PACIENTES SET NOMBRE=?, APELLIDO=?, DNI=?, FECHA_ALTA=?, DOMICILIO_ID=? WHERE ID=?"
             );
 
-            preparedStatement.setString(1, paciente.getNombre());
-            preparedStatement.setString(2, paciente.getApellido());
-            preparedStatement.setString(3, paciente.getDni());
-            preparedStatement.setDate(4, Date.valueOf(paciente.getFechaAlta()));
-            preparedStatement.setInt(5, paciente.getDomicilio().getId());
+            preparedStatement.setString(1, pacienteExistente.getNombre());
+            preparedStatement.setString(2, pacienteExistente.getApellido());
+            preparedStatement.setString(3, pacienteExistente.getDni());
+            preparedStatement.setDate(4, Date.valueOf(pacienteExistente.getFechaAlta()));
+            preparedStatement.setInt(5, pacienteExistente.getDomicilio().getId());
+            preparedStatement.setInt(6, pacienteExistente.getId());
 
             int filasAfectadas = preparedStatement.executeUpdate();
 
             if (filasAfectadas > 0) {
-                System.out.println("Se actualizó el odontologo con nombre " +
-                        paciente.getNombre());
+                LOGGER.info("Se actualizó el paciente con nombre " + pacienteExistente.getNombre());
             } else {
-                System.out.println("No se encontró el odontologo con ID " +
-                        paciente.getId());
+                LOGGER.warn("No se pudo actualizar el paciente con ID " + pacienteExistente.getId());
+                return null;
             }
 
+            return pacienteExistente;
 
         } catch (Exception e) {
+            LOGGER.error("Error al actualizar el paciente", e);
             e.printStackTrace();
         } finally {
             try {
-                connection.close();
+                if (connection != null) connection.close();
             } catch (Exception ex) {
+                LOGGER.error("Error al cerrar la conexión", ex);
                 ex.printStackTrace();
             }
         }
-        LOGGER.info("Guardamos el paciente con nombre " + paciente.getNombre());
+
         return paciente;
     }
-
-//    @Override
-//    public Paciente actualizar(Paciente paciente) {
-//        Connection connection = null;
-//
-//        try {
-//            connection = BD.getConnection();
-//
-//            PreparedStatement preparedStatement = connection.prepareStatement(
-//                    "UPDATE PACIENTES SET NOMBRE=?, APELLIDO=?, DOMICILIO=?," +
-//                            "DNI=?, FECHA_ALTA=? WHERE ID=?"
-//            );
-//
-//            preparedStatement.setString(1,paciente.getNombre());
-//            preparedStatement.setString(2,paciente.getApellido());
-//            preparedStatement.setString(3, paciente.getDomicilio());
-//            preparedStatement.setString(4, paciente.getDni());
-//            preparedStatement.setDate(5, Date.valueOf(paciente.getFechaAlta()));
-//            preparedStatement.setInt(6, paciente.getId());
-//
-//            preparedStatement.execute();
-//
-//            System.out.println("Este es el nuevo nombre del paciente" + paciente.getNombre());
-//
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        } finally {
-//            try {
-//                connection.close();
-//            } catch (Exception ex) {
-//                ex.printStackTrace();
-//            }
-//        }
-//        return paciente;
-//    }
-
-
 }
