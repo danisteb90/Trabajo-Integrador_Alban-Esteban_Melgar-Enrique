@@ -1,19 +1,27 @@
-package com.dh.Clase15_SpringMVC.modelo;
+package com.dh.Clase15_SpringMVC.entity;
+
+import jakarta.persistence.*;
 
 import java.time.LocalDate;
 
+@Entity
+@Table(name = "turnos")
 public class Turno {
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @ManyToOne
     private Odontologo odontologo;
+    @ManyToOne
     private Paciente paciente;
     private LocalDate fecha;
 
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

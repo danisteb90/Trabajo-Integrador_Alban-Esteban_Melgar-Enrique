@@ -1,12 +1,22 @@
-package com.dh.Clase15_SpringMVC.modelo;
+package com.dh.Clase15_SpringMVC.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+
+import java.util.HashSet;
+import java.util.Set;
+
+@Entity
+@Table(name = "odontologos")
 public class Odontologo {
-    private Integer id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nombre;
     private String apellido;
     private String matricula;
 
-    public Odontologo(Integer id, String nombre, String apellido, String matricula) {
+    public Odontologo(Long id, String nombre, String apellido, String matricula) {
         this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -16,11 +26,11 @@ public class Odontologo {
     public Odontologo() {
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -57,4 +67,8 @@ public class Odontologo {
                 ", matricula='" + matricula + '\'' +
                 '}';
     }
+
+    @OneToMany(mappedBy = "odontologo")
+    @JsonIgnore
+    private Set<Turno> turnoSet = new HashSet<>();
 }

@@ -8,7 +8,6 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class Clase15SpringMvcApplication {
 
 	public static void main(String[] args) {
-		BD.createTable();
 		SpringApplication.run(Clase15SpringMvcApplication.class, args);
 	}
 

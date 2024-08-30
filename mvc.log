@@ -237,7 +237,7 @@
 [2024-08-26 11:10:48] [ INFO ] [ImplementacionPaciente:180] Estamos actualizando un paciente
 [2024-08-26 11:10:48] [ INFO ] [ImplementacionPaciente:142] Estamos actualizando un domicilio
 [2024-08-26 11:10:48] [ ERROR] [ImplementacionPaciente:210] Error al actualizar el paciente
-java.lang.NullPointerException: Cannot invoke "com.dh.Clase15_SpringMVC.modelo.Domicilio.getId()" because "domicilio" is null
+java.lang.NullPointerException: Cannot invoke "com.dh.Clase15_SpringMVC.entity.Domicilio.getId()" because "domicilio" is null
 	at com.dh.Clase15_SpringMVC.dao.impl.ImplementacionDomicilio.actualizar(ImplementacionDomicilio.java:174)
 	at com.dh.Clase15_SpringMVC.dao.impl.ImplementacionPaciente.actualizar(ImplementacionPaciente.java:184)
 	at com.dh.Clase15_SpringMVC.dao.impl.ImplementacionPaciente.actualizar(ImplementacionPaciente.java:13)
@@ -579,3 +579,7 @@ UPDATE PACIENTES SET NOMBRE=?, APELLIDO=?, DNI=?, FECHA_ALTA=?, DOMICILIO_ID=? W
 [2024-08-26 11:32:15] [ INFO ] [ImplementacionPaciente:142] Estamos actualizando un domicilio
 [2024-08-26 11:32:15] [ INFO ] [ImplementacionPaciente:159] Se actualizó el domicilio con ID 1
 [2024-08-26 11:32:15] [ INFO ] [ImplementacionPaciente:225] Se actualizó el paciente con nombre Carlos
+[2024-08-29 19:48:27] [ INFO ] [BD:58] Estamos creando la tabla domicilios
+[2024-08-29 19:48:27] [ INFO ] [BD:60] Estamos creando la tabla pacientes
+[2024-08-29 19:48:27] [ INFO ] [BD:68] Estamos insertando un paciente en la tabla domicilios
+[2024-08-29 19:48:27] [ INFO ] [BD:70] Estamos insertando un paciente en la tabla pacientes

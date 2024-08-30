@@ -1,6 +1,6 @@
 package com.dh.Clase15_SpringMVC.servicio;
 
-import com.dh.Clase15_SpringMVC.modelo.Odontologo;
+import com.dh.Clase15_SpringMVC.entity.Odontologo;
 
 import java.util.List;
 
@@ -8,9 +8,9 @@ public interface IOdontologoServicio {
 
     Odontologo guardar (Odontologo odontologo);
 
-    Odontologo buscarPorId(Integer id);
+    Odontologo buscarPorId(Long id);
 
-    boolean eliminar(Integer id);
+    void eliminar(Long id);
 
     Odontologo actualizar (Odontologo odontologo);
 

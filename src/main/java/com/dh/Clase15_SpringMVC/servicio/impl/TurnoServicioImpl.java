@@ -1,31 +1,33 @@
 package com.dh.Clase15_SpringMVC.servicio.impl;
 
-import com.dh.Clase15_SpringMVC.dao.IDAO;
-import com.dh.Clase15_SpringMVC.dao.impl.ImplementacionTurnoList;
-import com.dh.Clase15_SpringMVC.modelo.Turno;
+import com.dh.Clase15_SpringMVC.entity.Turno;
+import com.dh.Clase15_SpringMVC.repository.ITurnoRepository;
 import com.dh.Clase15_SpringMVC.servicio.ITurnoServicio;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
+@Service
 public class TurnoServicioImpl implements ITurnoServicio {
-    private IDAO<Turno> iDao;
 
-    public TurnoServicioImpl() {
-        this.iDao = new ImplementacionTurnoList();
-    }
+    @Autowired
+    private ITurnoRepository iTurnoRepository;
 
     @Override
     public Turno guardar(Turno turno) {
-        return iDao.guardar(turno);
+        return iTurnoRepository.save(turno);
     }
 
     @Override
-    public Turno buscarPorId(Integer id) {
-        return iDao.consultarPorId(id);
+    public Turno buscarPorId(Long id) {
+        Optional<Turno> turnoBuscado = iTurnoRepository.findById(id);
+        return turnoBuscado.orElse(null);
     }
 
     @Override
     public List<Turno> listarTodos() {
-        return iDao.listarTodos();
+        return iTurnoRepository.findAll();
     }
 }
