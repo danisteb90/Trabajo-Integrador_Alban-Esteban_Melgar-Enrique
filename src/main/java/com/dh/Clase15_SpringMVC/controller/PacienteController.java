@@ -1,10 +1,8 @@
 package com.dh.Clase15_SpringMVC.controller;
 
 
-import com.dh.Clase15_SpringMVC.entity.Odontologo;
 import com.dh.Clase15_SpringMVC.entity.Paciente;
 import com.dh.Clase15_SpringMVC.servicio.IPacienteServicio;
-import com.dh.Clase15_SpringMVC.servicio.impl.PacienteServicioImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
