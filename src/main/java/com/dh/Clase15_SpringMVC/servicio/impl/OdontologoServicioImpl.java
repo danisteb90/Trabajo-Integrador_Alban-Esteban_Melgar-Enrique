@@ -1,6 +1,7 @@
 package com.dh.Clase15_SpringMVC.servicio.impl;
 
 import com.dh.Clase15_SpringMVC.entity.Odontologo;
+import com.dh.Clase15_SpringMVC.exception.BadRequestException;
 import com.dh.Clase15_SpringMVC.exception.ResourceNotFoundException;
 import com.dh.Clase15_SpringMVC.repository.IOdontologoRepository;
 import com.dh.Clase15_SpringMVC.servicio.IOdontologoServicio;
@@ -25,6 +26,15 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public Odontologo guardar(Odontologo odontologo) {
+        if (odontologo.getNombre() == null || odontologo.getNombre().isEmpty()) {
+            throw new BadRequestException("El nombre del odontólogo es obligatorio");
+        }
+        if (odontologo.getApellido() == null || odontologo.getApellido().isEmpty()) {
+            throw new BadRequestException("El apellido del odontólogo es obligatorio");
+        }
+        if (odontologo.getMatricula() == null || odontologo.getMatricula().isEmpty()) {
+            throw new BadRequestException("La matrícula del odontólogo es obligatoria");
+        }
         return iOdontologoRepository.save(odontologo);
     }
 
@@ -48,7 +58,23 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
 
     @Override
     public Odontologo actualizar(Odontologo odontologo) {
-        return iOdontologoRepository.save(odontologo);
+        Optional<Odontologo> odontologoExistente = Optional.ofNullable(buscarPorId(odontologo.getId()));
+        //si no existe lanzamos resource not found
+        if (odontologoExistente.isEmpty()) {
+            throw new ResourceNotFoundException("Odontologo no encontrado");
+        }
+        Odontologo odontologoActualizado = odontologoExistente.get();
+        if (odontologo.getNombre() != null) {
+            odontologoActualizado.setNombre(odontologo.getNombre());
+        }
+        if (odontologo.getApellido() != null) {
+            odontologoActualizado.setApellido(odontologo.getApellido());
+        }
+        if (odontologo.getMatricula() != null) {
+            odontologoActualizado.setMatricula(odontologo.getMatricula());
+        }
+        return iOdontologoRepository.save(odontologoActualizado);
+
     }
 
     @Override
