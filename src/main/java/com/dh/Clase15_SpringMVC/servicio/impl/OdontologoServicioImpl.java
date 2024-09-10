@@ -1,6 +1,7 @@
 package com.dh.Clase15_SpringMVC.servicio.impl;
 
 import com.dh.Clase15_SpringMVC.entity.Odontologo;
+import com.dh.Clase15_SpringMVC.exception.ResourceNotFoundException;
 import com.dh.Clase15_SpringMVC.repository.IOdontologoRepository;
 import com.dh.Clase15_SpringMVC.servicio.IOdontologoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,12 +31,18 @@ public class OdontologoServicioImpl implements IOdontologoServicio {
     @Override
     public Odontologo buscarPorId(Long id){
         Optional<Odontologo> odontologoBuscado = iOdontologoRepository.findById(id);
-        odontologoBuscado.orElse(null);
+        if(odontologoBuscado.isEmpty()) {
+            throw new ResourceNotFoundException("Odontólogo no encontrado");
+        }
         return odontologoBuscado.get();
     }
 
     @Override
     public void eliminar(Long id) {
+        Optional<Odontologo> odontologoBuscado = iOdontologoRepository.findById(id);
+        if(odontologoBuscado.isEmpty()) {
+            throw new ResourceNotFoundException("Odontólogo no encontrado para eliminar");
+        }
          iOdontologoRepository.deleteById(id);
     }
 
