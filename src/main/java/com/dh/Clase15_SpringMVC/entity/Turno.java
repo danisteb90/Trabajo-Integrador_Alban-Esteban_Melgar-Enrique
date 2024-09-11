@@ -1,7 +1,5 @@
 package com.dh.Clase15_SpringMVC.entity;
-
 import jakarta.persistence.*;
-
 import java.time.LocalDate;
 
 @Entity

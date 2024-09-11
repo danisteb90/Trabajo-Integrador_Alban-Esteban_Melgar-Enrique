@@ -18,7 +18,6 @@ public class TurnoServicioImpl implements ITurnoServicio {
 
     @Override
     public Turno guardar(Turno turno) {
-
         if (turno.getOdontologo() == null || turno.getPaciente() == null) {
             throw new BadRequestException("El turno debe tener un odontólogo y un paciente");
         }
