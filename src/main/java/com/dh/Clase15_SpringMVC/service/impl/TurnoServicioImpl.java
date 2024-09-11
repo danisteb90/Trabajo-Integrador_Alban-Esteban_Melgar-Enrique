@@ -1,9 +1,9 @@
-package com.dh.Clase15_SpringMVC.servicio.impl;
+package com.dh.Clase15_SpringMVC.service.impl;
 
 import com.dh.Clase15_SpringMVC.entity.Turno;
 import com.dh.Clase15_SpringMVC.exception.BadRequestException;
 import com.dh.Clase15_SpringMVC.repository.ITurnoRepository;
-import com.dh.Clase15_SpringMVC.servicio.ITurnoServicio;
+import com.dh.Clase15_SpringMVC.service.ITurnoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,16 +1,13 @@
 package com.dh.Clase15_SpringMVC.controller;
 
 
-import com.dh.Clase15_SpringMVC.entity.Domicilio;
 import com.dh.Clase15_SpringMVC.entity.Paciente;
-import com.dh.Clase15_SpringMVC.servicio.IPacienteServicio;
+import com.dh.Clase15_SpringMVC.service.IPacienteServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 //Controller -> THYMELEAF
 //RestController -> API REST

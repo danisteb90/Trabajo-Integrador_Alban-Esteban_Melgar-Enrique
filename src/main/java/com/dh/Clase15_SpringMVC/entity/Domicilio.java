@@ -21,4 +21,10 @@ public class Domicilio {
     private String localidad;
     private String provincia;
 
+    public Domicilio(String calle, int i, String localidad, String provincia) {
+        this.calle = calle;
+        this.numero = i;
+        this.localidad = localidad;
+        this.provincia = provincia;
+    }
 }

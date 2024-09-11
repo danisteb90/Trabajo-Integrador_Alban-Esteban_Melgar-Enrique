@@ -1,4 +1,4 @@
-package com.dh.Clase15_SpringMVC.servicio;
+package com.dh.Clase15_SpringMVC.service;
 
 import com.dh.Clase15_SpringMVC.entity.Odontologo;
 

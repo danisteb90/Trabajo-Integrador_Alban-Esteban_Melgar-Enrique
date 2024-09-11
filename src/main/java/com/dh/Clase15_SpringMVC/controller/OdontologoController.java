@@ -1,7 +1,7 @@
 package com.dh.Clase15_SpringMVC.controller;
 
 import com.dh.Clase15_SpringMVC.entity.Odontologo;
-import com.dh.Clase15_SpringMVC.servicio.IOdontologoServicio;
+import com.dh.Clase15_SpringMVC.service.IOdontologoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

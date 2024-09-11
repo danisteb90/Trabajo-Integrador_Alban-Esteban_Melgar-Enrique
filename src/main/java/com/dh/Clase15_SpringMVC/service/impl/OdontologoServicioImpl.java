@@ -1,10 +1,10 @@
-package com.dh.Clase15_SpringMVC.servicio.impl;
+package com.dh.Clase15_SpringMVC.service.impl;
 
 import com.dh.Clase15_SpringMVC.entity.Odontologo;
 import com.dh.Clase15_SpringMVC.exception.BadRequestException;
 import com.dh.Clase15_SpringMVC.exception.ResourceNotFoundException;
 import com.dh.Clase15_SpringMVC.repository.IOdontologoRepository;
-import com.dh.Clase15_SpringMVC.servicio.IOdontologoServicio;
+import com.dh.Clase15_SpringMVC.service.IOdontologoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

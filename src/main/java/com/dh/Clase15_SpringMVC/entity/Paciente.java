@@ -37,4 +37,12 @@ public class Paciente {
     @OneToMany(mappedBy = "paciente")
     @JsonIgnore
     private Set<Turno> turnoSet = new HashSet<>();
+
+    public Paciente(String nombre, String apellido, int i, Domicilio domicilio) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = String.valueOf(i);
+        this.domicilio = domicilio;
+        this.fechaAlta = LocalDate.now();
+    }
 }
