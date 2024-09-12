@@ -1,61 +1,84 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-    <title>Buscar Odontólogo</title>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
+	<head>
+		<title>Buscar Odontólogo</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		/>
+		<link rel="stylesheet" href="/css/styles.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<header class="header">
+			<h1>Buscar Odontólogo</h1>
+		</header>
 
-<header class="header">
-    <h1>Buscar Odontólogo</h1>
-</header>
+		<nav class="navbar">
+			<ul>
+				<li><a href="/index.html">Inicio</a></li>
+				<li><a href="/views/crearOdontologo.html">Crear Odontólogo</a></li>
+				<li><a href="/views/listarOdontologos.html">Listar Odontólogos</a></li>
+				<li><a href="/views/buscarOdontologo.html">Buscar un Odontólogo</a></li>
+				<li>
+					<a href="/views/actualizarOdontologo.html"
+						>Actualizar un Odontólogo</a
+					>
+				</li>
+				<li><a href="/views/eliminarOdontologo.html">Borrar Odontólogo</a></li>
+			</ul>
+		</nav>
 
-<nav class="navbar">
-    <ul>
-        <li><a href="/index.html">Inicio</a></li>
-        <li><a href="/views/crearOdontologo.html">Crear Odontólogo</a></li>
-        <li><a href="/views/listarOdontologos.html">Listar Odontólogos</a></li>
-        <li><a href="/views/buscarOdontologo.html">Buscar un Odontólogo</a></li>
-        <li><a href="/views/actualizarOdontologo.html">Actualizar un Odontólogo</a></li>
-        <li><a href="/views/eliminarOdontologo.html">Borrar Odontólogo</a></li>
-    </ul>
-</nav>
+		<div class="container main-content">
+			<div class="row">
+				<div
+					class="col-md-6 section"
+					style="padding: 20px; background-color: #ffffff; border-radius: 8px"
+				>
+					<h2>Selecciona un Odontólogo</h2>
+					<form id="search_odontologo_form">
+						<div class="form-group">
+							<label for="odontologo_select">Odontólogos Registrados:</label>
+							<select id="odontologo_select" class="form-control" required>
+								<option value="" disabled selected>
+									Seleccione un odontólogo
+								</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<button type="submit" class="btn btn-primary">Buscar</button>
+						</div>
+					</form>
+				</div>
+			</div>
 
-<div class="container main-content">
-    <div class="row">
-        <div class="col-md-6 section" style="padding: 20px; background-color: #ffffff; border-radius: 8px;">
-            <h2>Selecciona un Odontólogo</h2>
-            <form id="search_odontologo_form">
-                <div class="form-group">
-                    <label for="odontologo_select">Odontólogos Registrados:</label>
-                    <select id="odontologo_select" class="form-control" required>
-                        <option value="" disabled selected>Seleccione un odontólogo</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <button type="submit" class="btn btn-primary">Buscar</button>
-                </div>
-            </form>
-        </div>
-    </div>
+			<div class="row" id="odontologo_info" style="display: none">
+				<div
+					class="col-md-6 section"
+					style="
+						padding: 20px;
+						background-color: #ebebeb;
+						border: 2px solid #4caf50;
+						border-radius: 8px;
+					"
+				>
+					<h3>Información del Odontólogo</h3>
+					<p><strong>Id:</strong> <span id="odontologo_id"></span></p>
+					<p><strong>Nombre:</strong> <span id="odontologo_nombre"></span></p>
+					<p>
+						<strong>Apellido:</strong> <span id="odontologo_apellido"></span>
+					</p>
+					<p>
+						<strong>Matrícula:</strong> <span id="odontologo_matricula"></span>
+					</p>
+				</div>
+			</div>
+		</div>
 
-    <div class="row" id="odontologo_info" style="display: none;">
-        <div class="col-md-6 section" style="padding: 20px; background-color: #e6fffa; border-radius: 8px;">
-            <h3>Información del Odontólogo</h3>
-            <p><strong>Id:</strong> <span id="odontologo_id"></span></p>
-            <p><strong>Nombre:</strong> <span id="odontologo_nombre"></span></p>
-            <p><strong>Apellido:</strong> <span id="odontologo_apellido"></span></p>
-            <p><strong>Matrícula:</strong> <span id="odontologo_matricula"></span></p>
-        </div>
-    </div>
-</div>
-
-<script type="text/javascript" src="/js/getOdontologo.js"></script>
-</body>
+		<script type="text/javascript" src="/js/getOdontologo.js"></script>
+	</body>
 </html>

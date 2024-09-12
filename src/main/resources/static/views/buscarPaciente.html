@@ -1,62 +1,79 @@
 <!DOCTYPE html>
 <html lang="es">
-<head>
-  <title>Buscar Paciente</title>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-  <link rel="stylesheet" href="/css/styles.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-</head>
-<body>
+	<head>
+		<title>Buscar Paciente</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+		/>
+		<link rel="stylesheet" href="/css/styles.css" />
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+	</head>
+	<body>
+		<header class="header">
+			<h1>Buscar Paciente</h1>
+		</header>
 
-<header class="header">
-  <h1>Buscar Paciente</h1>
-</header>
+		<nav class="navbar">
+			<ul>
+				<li><a href="/index.html">Inicio</a></li>
+				<li><a href="/views/crearPaciente.html">Crear Paciente</a></li>
+				<li><a href="/views/listarPacientes.html">Listar Pacientes</a></li>
+				<li><a href="/views/buscarPaciente.html">Buscar Paciente</a></li>
+				<li>
+					<a href="/views/actualizarPaciente.html">Actualizar Paciente</a>
+				</li>
+				<li><a href="/views/eliminarPaciente.html">Borrar Paciente</a></li>
+			</ul>
+		</nav>
 
-<nav class="navbar">
-  <ul>
-    <li><a href="/index.html">Inicio</a></li>
-    <li><a href="/index.html">Inicio</a></li>
-    <li><a href="/views/crearPaciente.html">Crear Paciente</a></li>
-    <li><a href="/views/listarPacientes.html">Listar Pacientes</a></li>
-    <li><a href="/views/buscarPaciente.html">Buscar Paciente</a></li>
-    <li><a href="/views/actualizarPaciente.html">Actualizar Paciente</a></li>
-    <li><a href="/views/eliminarPaciente.html">Borrar Paciente</a></li>
-  </ul>
-</nav>
+		<div class="container main-content">
+			<div class="row">
+				<div class="col-md-6 section">
+					<h2>Seleccione un Paciente</h2>
+					<form id="buscar_paciente_form">
+						<div class="form-group">
+							<label for="paciente_select">Pacientes Registrados:</label>
+							<select id="paciente_select" class="form-control" required>
+								<option value="" disabled selected>
+									Seleccione un paciente
+								</option>
+							</select>
+						</div>
+						<button type="submit" class="btn btn-primary">Buscar</button>
+					</form>
+				</div>
+			</div>
 
-<div class="container main-content">
-  <div class="row">
-    <div class="col-md-6 section">
-      <h2>Seleccione un Paciente</h2>
-      <form id="buscar_paciente_form">
-        <div class="form-group">
-          <label for="paciente_select">Pacientes Registrados:</label>
-          <select id="paciente_select" class="form-control" required>
-            <option value="" disabled selected>Seleccione un paciente</option>
-          </select>
-        </div>
-        <button type="submit" class="btn btn-primary">Buscar</button>
-      </form>
-    </div>
-  </div>
+			<div class="row" id="paciente_info" style="display: none">
+				<div
+					class="col-md-6 section"
+					style="
+						background-color: #ebebeb;
+						border: 2px solid #4caf50;
+						border-radius: 8px;
+					"
+				>
+					<h3>Información del Paciente</h3>
+					<p><strong>Id:</strong> <span id="paciente_id"></span></p>
+					<p><strong>Nombre:</strong> <span id="paciente_nombre"></span></p>
+					<p><strong>Apellido:</strong> <span id="paciente_apellido"></span></p>
+					<p><strong>DNI:</strong> <span id="paciente_dni"></span></p>
+					<p>
+						<strong>Fecha de Alta:</strong>
+						<span id="paciente_fechaAlta"></span>
+					</p>
+					<p>
+						<strong>Domicilio:</strong> <span id="paciente_domicilio"></span>
+					</p>
+				</div>
+			</div>
+		</div>
 
-  <div class="row" id="paciente_info" style="display: none;">
-    <div class="col-md-6 section" style="background-color: #e6fffa;">
-      <h3>Información del Paciente</h3>
-      <p><strong>Id:</strong> <span id="paciente_id"></span></p>
-      <p><strong>Nombre:</strong> <span id="paciente_nombre"></span></p>
-      <p><strong>Apellido:</strong> <span id="paciente_apellido"></span></p>
-      <p><strong>DNI:</strong> <span id="paciente_dni"></span></p>
-      <p><strong>Fecha de Alta:</strong> <span id="paciente_fechaAlta"></span></p>
-      <p><strong>Domicilio:</strong> <span id="paciente_domicilio"></span></p>
-    </div>
-  </div>
-</div>
-
-<script type="text/javascript" src="/js/getPaciente.js"></script>
-</body>
+		<script type="text/javascript" src="/js/getPaciente.js"></script>
+	</body>
 </html>
