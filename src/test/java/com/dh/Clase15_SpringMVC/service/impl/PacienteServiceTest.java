@@ -49,5 +49,18 @@ public class PacienteServiceTest {
         System.out.println(pacientes);
     }
 
+    @Test
+    public void testEliminar() {
+        cargarData();
+        pacienteServicio.eliminar(1L);
+        // si se eliminó debemos esperar que nos regrese un ResourceNotFoundException
+        try {
+            pacienteServicio.consultarPorId(1L);
+            assert false;
+        } catch (Exception e) {
+            assert e.getClass().getSimpleName().equals("ResourceNotFoundException");
+        }
+    }
+
 
 }

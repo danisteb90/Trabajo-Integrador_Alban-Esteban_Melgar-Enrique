@@ -28,6 +28,12 @@ public class Odontologo {
     @NotNull(message = "La matrícula es obligatoria")
     private String matricula;
 
+    public Odontologo(String nombre, String apellido, int i) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.matricula = String.valueOf(i);
+    }
+
     @Override
     public String toString() {
         return "Odontologo{" +

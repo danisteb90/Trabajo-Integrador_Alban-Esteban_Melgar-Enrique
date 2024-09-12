@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <title>Pacientes</title>
+    <title>Eliminar Paciente</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -13,7 +13,7 @@
 <body>
 
 <header class="header">
-    <h1>Pacientes</h1>
+    <h1>Eliminar Paciente</h1>
 </header>
 
 <nav class="navbar">
@@ -29,28 +29,23 @@
 </nav>
 
 <div class="container main-content">
-    <div id="div_paciente_table">
-        <h2>Lista de Pacientes</h2>
-        <div class="table-responsive">
-            <table id="pacienteTable" class="table table-striped">
-                <thead>
-                <tr>
-                    <th>Id</th>
-                    <th>Nombre</th>
-                    <th>Apellido</th>
-                    <th>DNI</th>
-                    <th>Fecha de alta</th>
-                    <th>Domicilio</th>
-                </tr>
-                </thead>
-                <tbody id="pacienteTableBody">
-
-                </tbody>
-            </table>
+    <div class="row">
+        <div class="col-md-6 section">
+            <h2>Seleccione un Paciente para Eliminar</h2>
+            <form id="delete_paciente_form">
+                <div class="form-group">
+                    <label for="paciente_select">Pacientes Registrados:</label>
+                    <select id="paciente_select" class="form-control" required>
+                        <option value="" disabled selected>Seleccione un paciente</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-danger">Eliminar</button>
+            </form>
+            <div id="response" style="display:none; margin-top:10px;"></div>
         </div>
     </div>
 </div>
 
-<script type="text/javascript" src="/js/getPacientes.js"></script>
+<script type="text/javascript" src="/js/deletePaciente.js"></script>
 </body>
 </html>

@@ -1,67 +1,45 @@
 window.addEventListener('load', function () {
-    (function(){
+    const url = '/pacientes';
+    const settings = {
+        method: 'GET'
+    };
 
-        //con fetch invocamos a la API de peliculas con el método GET
-        //nos devolverá un JSON con una colección de peliculas
-        const url = '/pacientes';
-        const settings = {
-            method: 'GET'
+    fetch(url, settings)
+        .then(response => response.json())
+        .then(data => {
+            let pacienteSelect = document.querySelector('#paciente_select');
+            data.forEach(paciente => {
+                let option = document.createElement('option');
+                option.value = paciente.id;
+                option.text = `${paciente.nombre} ${paciente.apellido}`;
+                pacienteSelect.appendChild(option);
+            });
+        });
+
+    const formulario = document.querySelector('#buscar_paciente_form');
+    formulario.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        let selectedId = document.querySelector('#paciente_select').value;
+        if (!selectedId) {
+            alert("Seleccione un paciente válido.");
+            return;
         }
 
-        fetch(url,settings)
+        fetch(`${url}/${selectedId}`, settings)
             .then(response => response.json())
-            .then(data => {
-                //recorremos la colección de peliculas del JSON
-                console.log(data);
-                for(paciente of data){
-                    console.log(data);
-                    //por cada pelicula armaremos una fila de la tabla
-                    //cada fila tendrá un id que luego nos permitirá borrar la fila si eliminamos la pelicula
-                    var table = document.getElementById("pacienteTable");
-                    var pacienteRow =table.insertRow();
-                    let tr_id = 'tr_' + paciente.id;
-                    pacienteRow.id = tr_id;
-
-                    //armamos cada columna de la fila
-                    //como primer columna pondremos el boton modificar
-                    //luego los datos de la pelicula
-                    //como ultima columna el boton eliminar
-                    pacienteRow.innerHTML =
-                        '<td class="td_id">' +
-                        paciente.id +
-                        "</td>" +
-                        '<td class="td_nombre">' +
-                        paciente.nombre.toUpperCase() +
-                        "</td>" +
-                        '<td class="td_apellido">' +
-                        paciente.apellido.toUpperCase() +
-                        "</td>" +
-                        '<td class="td_dni">' +
-                        paciente.dni +
-                        "</td>" +
-                        '<td class="td_fechaAlta">' +
-                        paciente.fechaAlta +
-                        "</td>" +
-                        '<td class="td_direccion">' +
-                        paciente.domicilio.calle +
-                        " " +
-                        paciente.domicilio.numero +
-                        ", " +
-                        paciente.domicilio.localidad +
-                        ", " +
-                        paciente.domicilio.provincia +
-                        "</td>";
-                };
-
+            .then(paciente => {
+                document.querySelector('#paciente_id').innerText = paciente.id;
+                document.querySelector('#paciente_nombre').innerText = paciente.nombre;
+                document.querySelector('#paciente_apellido').innerText = paciente.apellido;
+                document.querySelector('#paciente_dni').innerText = paciente.dni;
+                document.querySelector('#paciente_fechaAlta').innerText = paciente.fechaAlta;
+                document.querySelector('#paciente_domicilio').innerText = `${paciente.domicilio.calle} ${paciente.domicilio.numero}, ${paciente.domicilio.localidad}, ${paciente.domicilio.provincia}`;
+                document.querySelector('#paciente_info').style.display = "block";
             })
-    })
-
-    (function(){
-        let pathname = window.location.pathname;
-        if (pathname == "/listarPacientes.html") {
-            document.querySelector(".nav .nav-item a:last").addClass("active");
-        }
-    })
-
-
-})
+            .catch(error => {
+                alert("Error al obtener la información del paciente. Intente nuevamente.");
+                console.error('Error:', error);
+            });
+    });
+});

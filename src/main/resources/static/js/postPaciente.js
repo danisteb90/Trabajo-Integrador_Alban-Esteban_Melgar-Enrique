@@ -1,34 +1,28 @@
-document.getElementById("add_new_paciente").onsubmit=function(e) {
+document.getElementById("add_new_paciente").onsubmit = function(e) {
     e.preventDefault();
 };
 
 window.addEventListener('load', function () {
 
-    //Al cargar la pagina buscamos y obtenemos el formulario donde estarán
-    //los datos que el usuario cargará de la nueva pelicula
     const formulario = document.querySelector('#add_new_paciente');
 
-    //Ante un submit del formulario se ejecutará la siguiente funcion
+    // Al enviar el formulario, creamos un JSON con los datos del nuevo paciente
     formulario.addEventListener('submit', function (event) {
+        event.preventDefault();
 
-        //creamos un JSON que tendrá los datos de la nueva película
         const formData = {
             nombre: document.querySelector('#nombre').value,
             apellido: document.querySelector('#apellido').value,
             dni: document.querySelector('#dni').value,
-            //crear fechaAlta con la fecha actual en formato yyyy-mm-dd
-            fechaAlta: new Date().toISOString().slice(0, 10),
+            fechaAlta: new Date().toISOString().slice(0, 10), // Fecha actual en formato yyyy-mm-dd
             domicilio: {
                 calle: document.querySelector('#calle').value,
-                numero: document.querySelector('#numero').value*1,
+                numero: parseInt(document.querySelector('#numero').value),
                 localidad: document.querySelector('#localidad').value,
                 provincia: document.querySelector('#provincia').value
             }
-
         };
-        console.log(formData)
-        //invocamos utilizando la función fetch la API peliculas con el método POST que guardará
-        //la película que enviaremos en formato JSON
+
         const url = '/pacientes';
         const settings = {
             method: 'POST',
@@ -36,37 +30,35 @@ window.addEventListener('load', function () {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(formData)
-        }
+        };
 
+        // Enviar la solicitud para agregar el nuevo paciente
         fetch(url, settings)
             .then(response => response.json())
             .then(data => {
-                //Si no hay ningun error se muestra un mensaje diciendo que la pelicula
-                //se agrego bien
+                // Si no hay errores, mostrar un mensaje de éxito
                 let successAlert = '<div class="alert alert-success alert-dismissible">' +
                     '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                    '<strong></strong> Paciente agregado </div>'
+                    '<strong>Paciente agregado correctamente</strong></div>';
 
                 document.querySelector('#response').innerHTML = successAlert;
                 document.querySelector('#response').style.display = "block";
-                resetUploadForm();
+                resetForm();
 
             })
             .catch(error => {
-                //Si hay algun error se muestra un mensaje diciendo que la pelicula
-                //no se pudo guardar y se intente nuevamente
+                // Si hay errores, mostrar un mensaje de error
                 let errorAlert = '<div class="alert alert-danger alert-dismissible">' +
                     '<button type="button" class="close" data-dismiss="alert">&times;</button>' +
-                    '<strong> Error intente nuevamente</strong> </div>'
+                    '<strong>Error al agregar el paciente. Intente nuevamente.</strong></div>';
 
                 document.querySelector('#response').innerHTML = errorAlert;
                 document.querySelector('#response').style.display = "block";
-                //se dejan todos los campos vacíos por si se quiere ingresar otra pelicula
-                resetUploadForm();})
+            });
     });
 
-
-    function resetUploadForm(){
+    // Función para resetear el formulario después de agregar el paciente
+    function resetForm() {
         document.querySelector('#nombre').value = "";
         document.querySelector('#apellido').value = "";
         document.querySelector('#dni').value = "";
@@ -74,15 +66,13 @@ window.addEventListener('load', function () {
         document.querySelector('#numero').value = "";
         document.querySelector('#localidad').value = "";
         document.querySelector('#provincia').value = "";
-
     }
 
-    (function(){
+    // Resaltar el enlace activo en la barra de navegación
+    (function() {
         let pathname = window.location.pathname;
-        if(pathname === "/"){
-            document.querySelector(".nav .nav-item a:first").addClass("active");
-        } else if (pathname == "/crearPaciente.html") {
-            document.querySelector(".nav .nav-item a:last").addClass("active");
+        if (pathname === "/views/crearPaciente.html") {
+            document.querySelector(".nav .nav-item a:first").classList.add("active");
         }
     })();
 });

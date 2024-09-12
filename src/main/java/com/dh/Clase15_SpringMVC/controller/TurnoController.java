@@ -22,4 +22,9 @@ public class TurnoController {
     public ResponseEntity<Turno> buscarPorId(@PathVariable Long id) {
         return ResponseEntity.ok(iTurnoServicio.buscarPorId(id));
     }
+
+    @GetMapping
+    public ResponseEntity<?> listarTodos() {
+        return ResponseEntity.ok(iTurnoServicio.listarTodos());
+    }
 }

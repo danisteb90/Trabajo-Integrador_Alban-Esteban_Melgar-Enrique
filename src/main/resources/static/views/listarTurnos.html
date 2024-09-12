@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Listar Turnos</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<header class="header">
+    <h1>Listar Turnos</h1>
+</header>
+
+<nav class="navbar">
+    <ul>
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/views/crearTurno.html">Crear Turno</a></li>
+        <li><a href="/views/listarTurnos.html">Listar Turnos</a></li>
+    </ul>
+</nav>
+
+<div class="container main-content">
+    <div class="row">
+        <div class="col-md-6 section">
+            <h2>Turnos Registrados</h2>
+            <table id="turnoTable" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Paciente</th>
+                    <th>Odontólogo</th>
+                </tr>
+                </thead>
+                <tbody id="turnoTableBody">
+                <!-- Los turnos se cargarán dinámicamente aquí -->
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 section" id="turno_info_section" style="display:none; background-color:#e6fffa; padding:10px; border-radius:3px;">
+            <h3>Detalles del Turno</h3>
+            <p><strong>ID:</strong> <span id="turno_id"></span></p>
+            <p><strong>Fecha:</strong> <span id="turno_fecha"></span></p>
+            <h4>Paciente</h4>
+            <p><strong>Nombre:</strong> <span id="paciente_nombre"></span></p>
+            <p><strong>Apellido:</strong> <span id="paciente_apellido"></span></p>
+            <p><strong>DNI:</strong> <span id="paciente_dni"></span></p>
+            <p><strong>Domicilio:</strong> <span id="paciente_domicilio"></span></p>
+            <h4>Odontólogo</h4>
+            <p><strong>Nombre:</strong> <span id="odontologo_nombre"></span></p>
+            <p><strong>Apellido:</strong> <span id="odontologo_apellido"></span></p>
+            <p><strong>Matrícula:</strong> <span id="odontologo_matricula"></span></p>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/getTurnos.js"></script>
+</body>
+</html>
