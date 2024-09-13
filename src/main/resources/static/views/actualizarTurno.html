@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Actualizar Turno</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<header class="header">
+    <h1>Actualizar Turno</h1>
+</header>
+
+<nav class="navbar">
+    <ul>
+        <li><a href="/index.html">Inicio</a></li>
+        <li><a href="/views/crearTurno.html">Crear Turno</a></li>
+        <li><a href="/views/listarTurnos.html">Listar Turnos</a></li>
+        <li><a href="/views/actualizarTurno.html">Actualizar Turno</a></li>
+        <li><a href="/views/eliminarTurno.html">Eliminar Turno</a></li>
+    </ul>
+</nav>
+
+<div class="container main-content">
+    <div class="row">
+        <div class="col-md-6 section">
+            <h2>Seleccionar Turno para Actualizar</h2>
+            <table id="turnoTable" class="table table-striped">
+                <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Fecha</th>
+                    <th>Paciente</th>
+                    <th>Odontólogo</th>
+                </tr>
+                </thead>
+                <tbody id="turnoTableBody">
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-6 section" id="update_turno_section" style="display:none; background-color:#e6fffa; padding:10px; border-radius:3px;">
+            <h3>Actualizar Odontólogo y Fecha del Turno</h3>
+            <form id="update_turno_form">
+                <div class="form-group">
+                    <label for="turno_id">ID del Turno:</label>
+                    <input type="text" id="turno_id" class="form-control" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="turno_fecha">Fecha del Turno:</label>
+                    <input type="date" id="turno_fecha" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="odontologo_select">Seleccione un Odontólogo:</label>
+                    <select id="odontologo_select" class="form-control" required>
+                        <option value="" disabled selected>Seleccione un odontólogo</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary">Actualizar Turno</button>
+            </form>
+            <div id="response" style="display:none; margin-top:10px;"></div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="/js/putTurno.js"></script>
+</body>
+</html>

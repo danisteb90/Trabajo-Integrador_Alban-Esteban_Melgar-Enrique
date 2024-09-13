@@ -17,13 +17,13 @@ window.addEventListener("load", function () {
                     <td>${turno.odontologo.nombre} ${turno.odontologo.apellido}</td>
                 `;
 				row.addEventListener("click", function () {
-					// Remover la clase de todas las filas
+
 					document
 						.querySelectorAll("#turnoTableBody tr")
 						.forEach((r) => r.classList.remove("selected-row"));
-					// Agregar la clase a la fila seleccionada
+
 					this.classList.add("selected-row");
-					// Mostrar detalles del turno
+
 					mostrarDetallesTurno(turno);
 				});
 				turnoTableBody.appendChild(row);

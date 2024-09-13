@@ -13,16 +13,10 @@ import java.util.Optional;
 
 @Service
 public class OdontologoServicioImpl implements IOdontologoServicio {
-    //CREO UN ATRIBUTO DE LA INTERFAZ IDAO
-//    private IDAO<Odontologo> odontologoIDAO;
+
     @Autowired
     private IOdontologoRepository iOdontologoRepository;
 
-    //EN EL CONSTRUCTOR INICIALIZO ESA INTERFAZ INDICANDOLE
-    //CUAL ES LA IMPLEMENTACION
-//    public OdontologoServicioImpl() {
-//        this.odontologoIDAO = new ImplementacionOdontologo();
-//    }
 
     @Override
     public Odontologo guardar(Odontologo odontologo) {

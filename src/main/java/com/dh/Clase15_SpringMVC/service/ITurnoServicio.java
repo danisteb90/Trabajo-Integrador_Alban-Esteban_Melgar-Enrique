@@ -9,4 +9,6 @@ public interface ITurnoServicio {
     Turno guardar(Turno turno);
     Turno buscarPorId(Long id);
     List<Turno> listarTodos();
+    void eliminar(Long id);
+    Turno actualizar(Turno turno);
 }

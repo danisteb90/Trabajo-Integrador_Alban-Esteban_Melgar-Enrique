@@ -1,6 +1,6 @@
 window.addEventListener('load', function () {
 
-    // Al cargar la página, obtener la lista de odontólogos y llenar el dropdown
+
     const url = '/odontologos';
     const settings = {
         method: 'GET'
@@ -10,7 +10,7 @@ window.addEventListener('load', function () {
         .then(response => response.json())
         .then(data => {
             let odontologoSelect = document.querySelector('#odontologo_select');
-            // Llenar el dropdown con los odontólogos obtenidos
+
             data.forEach(odontologo => {
                 let option = document.createElement('option');
                 option.value = odontologo.id;
@@ -19,7 +19,7 @@ window.addEventListener('load', function () {
             });
         });
 
-    // Al enviar el formulario, eliminar el odontólogo seleccionado
+
     const deleteForm = document.querySelector('#delete_odontologo_form');
     deleteForm.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -37,13 +37,13 @@ window.addEventListener('load', function () {
             }
         };
 
-        // Enviar la solicitud DELETE para eliminar el odontólogo
+
         fetch(`${url}/${selectedId}`, deleteSettings)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Error al eliminar el odontólogo');
                 }
-                // Verificamos si la respuesta tiene contenido antes de intentar convertirla a JSON
+
                 return response.text().then(text => {
                     return text ? JSON.parse(text) : {};
                 });
@@ -56,7 +56,7 @@ window.addEventListener('load', function () {
                 document.querySelector('#response').innerHTML = successAlert;
                 document.querySelector('#response').style.display = "block";
 
-                // Eliminar el odontólogo del dropdown
+
                 let odontologoSelect = document.querySelector('#odontologo_select');
                 let optionToRemove = odontologoSelect.querySelector(`option[value="${selectedId}"]`);
                 optionToRemove.remove();

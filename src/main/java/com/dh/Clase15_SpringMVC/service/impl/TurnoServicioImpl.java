@@ -37,4 +37,23 @@ public class TurnoServicioImpl implements ITurnoServicio {
     public List<Turno> listarTodos() {
         return iTurnoRepository.findAll();
     }
+
+    @Override
+    public void eliminar(Long id) {
+        iTurnoRepository.deleteById(id);
+    }
+
+    @Override
+    public Turno actualizar(Turno turno) {
+        Optional<Turno> turnoBuscado = iTurnoRepository.findById(turno.getId());
+        if (turnoBuscado.isEmpty()) {
+            throw new BadRequestException("Turno no encontrado");
+        }
+        Turno turnoActualizado = turnoBuscado.get();
+        turnoActualizado.setFecha(turno.getFecha());
+        turnoActualizado.setOdontologo(turno.getOdontologo());
+        turnoActualizado.setPaciente(turno.getPaciente());
+        return iTurnoRepository.save(turnoActualizado);
+
+    }
 }

@@ -1,6 +1,5 @@
 window.addEventListener('load', function () {
 
-    // Al cargar la página, obtener la lista de odontólogos y llenar el dropdown
     const url = '/odontologos';
     const settings = {
         method: 'GET'
@@ -10,7 +9,6 @@ window.addEventListener('load', function () {
         .then(response => response.json())
         .then(data => {
             let odontologoSelect = document.querySelector('#odontologo_select');
-            // Llenar el dropdown con los odontólogos obtenidos
             data.forEach(odontologo => {
                 let option = document.createElement('option');
                 option.value = odontologo.id;
@@ -19,7 +17,6 @@ window.addEventListener('load', function () {
             });
         });
 
-    // Al enviar el formulario de selección de odontólogo, cargar los datos en el formulario de actualización
     const selectForm = document.querySelector('#select_odontologo_form');
     selectForm.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -30,17 +27,14 @@ window.addEventListener('load', function () {
             return;
         }
 
-        // Obtener la información del odontólogo seleccionado
         fetch(`${url}/${selectedId}`, settings)
             .then(response => response.json())
             .then(odontologo => {
-                // Llenar el formulario de actualización con los datos obtenidos
                 document.querySelector('#odontologo_id').value = odontologo.id;
                 document.querySelector('#odontologo_nombre').value = odontologo.nombre;
                 document.querySelector('#odontologo_apellido').value = odontologo.apellido;
                 document.querySelector('#odontologo_matricula').value = odontologo.matricula;
 
-                // Mostrar el formulario de actualización
                 document.querySelector('#odontologo_update_form').style.display = "block";
             })
             .catch(error => {
@@ -49,7 +43,6 @@ window.addEventListener('load', function () {
             });
     });
 
-    // Al enviar el formulario de actualización, enviar los datos actualizados al servidor
     const updateForm = document.querySelector('#update_odontologo_form');
     updateForm.addEventListener('submit', function (event) {
         event.preventDefault();
@@ -69,7 +62,6 @@ window.addEventListener('load', function () {
             body: JSON.stringify(updatedData)
         };
 
-        // Enviar la solicitud PUT para actualizar el odontólogo
         fetch(`${url}/${updatedData.id}`, putSettings)
             .then(response => response.json())
             .then(data => {

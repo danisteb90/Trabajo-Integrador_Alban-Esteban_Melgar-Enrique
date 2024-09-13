@@ -1,6 +1,5 @@
 window.addEventListener('load', function () {
 
-    // Obtener la lista de pacientes al cargar la página
     const url = '/pacientes';
     const settings = {
         method: 'GET'
@@ -11,10 +10,10 @@ window.addEventListener('load', function () {
         .then(data => {
             let pacienteTable = document.getElementById("pacienteTable");
 
-            // Recorrer la colección de pacientes y armar cada fila de la tabla
+
             data.forEach(paciente => {
-                let pacienteRow = pacienteTable.insertRow(); // Insertar una nueva fila
-                pacienteRow.id = 'tr_' + paciente.id; // Asignar un id único a la fila
+                let pacienteRow = pacienteTable.insertRow();
+                pacienteRow.id = 'tr_' + paciente.id;
 
                 pacienteRow.innerHTML =
                     '<td>' + paciente.id + '</td>' +
@@ -30,7 +29,7 @@ window.addEventListener('load', function () {
             console.error("Error al obtener la lista de pacientes:", error);
         });
 
-    // Resaltar el enlace activo en la barra de navegación
+
     (function(){
         let pathname = window.location.pathname;
         if (pathname == "/views/listarPacientes.html") {

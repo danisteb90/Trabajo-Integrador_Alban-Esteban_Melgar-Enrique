@@ -27,4 +27,16 @@ public class TurnoController {
     public ResponseEntity<?> listarTodos() {
         return ResponseEntity.ok(iTurnoServicio.listarTodos());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> eliminar(@PathVariable Long id) {
+        iTurnoServicio.eliminar(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Turno> actualizar(@PathVariable Long id, @RequestBody Turno turno) {
+        turno.setId(id);
+        return ResponseEntity.ok(iTurnoServicio.actualizar(turno));
+    }
 }
